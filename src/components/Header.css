@@ -1,0 +1,137 @@
+.main-header {
+    width: 100%;
+    height: 64px;
+    background-color: #111827;
+    padding: 0 64px;
+    box-sizing: border-box; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    margin: 0;
+  }
+  .frame-3, .logo-web, .search-box {
+    position: static;         
+  }
+  /* Frame 3: Container for Logo and Search */
+  .frame-3 {
+    display: flex;         /* Horizontal layout from Figma */
+    align-items: center;    /* Keeps logo and search perfectly aligned vertically */
+    height: 48px;          /* Exact height from Figma */
+    gap: 32px;    
+    flex: 1;          /* Exact spacing between logo and search */
+    min-width: 0;
+    max-width: 837px;      /* Maximum width as seen in Figma */
+  }
+  
+  /* Logo Container */
+  .logo-web {
+    display: flex;
+    align-items: baseline; /* Important: aligns the bottoms of the letters */
+    gap: 4px;             /* Small space between the two words */
+    color: #ffffff;       /* From Figma colors */
+  }
+  
+  /* "Management" Styles */
+  .logo-management {
+    font-family: 'Inter', sans-serif; /* */
+    font-weight: 700;                 /* */
+    font-size: 28px;                  /* */
+    line-height: 21px;                /* */
+  }
+  
+  /* "Chuwa" Styles */
+  .logo-chuwa {
+    font-family: 'Inter', sans-serif; /* */
+    font-weight: 700;                 /* */
+    font-size: 12px;                  /* */
+    line-height: 21px;                /* */
+  }
+  
+  .search-box {
+    width: 528px;             
+    height: 48px;
+    border: 1px solid #CCCCCC; 
+    border-radius: 4px;
+    background-color: #ffffff;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+  
+    justify-content: space-between; 
+  
+    transform: rotate(0deg);
+  }
+  
+  .search-text {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    vertical-align: middle;
+    color: #979797;
+  
+  }
+  
+  .search-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .frame-2 {
+    display: flex;
+    width: auto;
+    height: 30px;
+    gap: 38px;
+  }
+  
+  .sign-out-box {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding-top: 4.5px;
+    padding-bottom: 4.5px;
+  }
+  
+  .user-certificate {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .sign-out-text {
+    font-family: 'Inter';
+    font-weight: 600;      
+    font-size: 16px;
+    line-height: 21px;      
+    color: #FFFFFF;
+    text-align: center;
+  }
+  
+  .my-cart {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    width: 90px;
+    height: 30px;
+  }
+  
+  .cart-icon {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .total-price {
+    font-family: Inter;
+    font-weight: 600;
+    font-style: Semi Bold;
+    font-size: 16px;
+    line-height: 21px;
+    letter-spacing: 0px;
+    text-align: center;
+    vertical-align: middle;
+    color:#FFFFFF
+  }

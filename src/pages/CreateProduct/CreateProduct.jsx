@@ -78,7 +78,7 @@ const CreateProduct = () => {
               {/* Image Preview group */}
               <div className="image-preview-container">
                 <div className="image-preview-box" style={{ backgroundImage: `url(${dashedBorder})` }}>
-                    {/* <img src={previewIcon} className="preview-icon" alt="preview" /> */}
+                    {/*  */}
                   <img src={imagePlaceholder} className="preview-icon" alt="placeholder" />
                   <span className="preview-text">image preview!</span>
                 </div>

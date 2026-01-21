@@ -3,6 +3,8 @@ importing the express app
 start the http server
 */
 
+require("dotenv").config();
+
 const app = require("./app");
 
 const PORT = process.env.PORT || 4000;

@@ -1,8 +1,20 @@
-module.exports = (err, req, res, next) => {
-    console.error(err);
+const CustomAPIError = require("../errors");
 
-    res.status(err.status || 500).json({
-        ok: false,
-        error: err.message || "Internal Server Error"
-    });
+const errorHandlerMiddleware = (err, req, res, next) => {
+    if (err instanceof CustomAPIError) {
+        return res.status(err.statusCode).json({
+            ok: false,
+            error: err.message
+        });
+    }
+
+    return res
+        .status(err.statusCode || 500)
+        .json({
+            ok: false,
+            error: err.message || "Something went wrong, please try again later."
+        })
 };
+
+module.exports = errorHandlerMiddleware;
+

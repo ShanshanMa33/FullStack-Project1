@@ -5,5 +5,12 @@
     "password": "$2b$10$6O5d0rDFfp3A9Bj3QdsqqOPPXJRYBYJRUBIB8bf7ohwxamKYI..Ie",
     "role": "user",
     "createdAt": "2026-01-20T08:35:40.526Z"
+  },
+  {
+    "id": "cedd5f4a-b70f-4fee-87d3-cc6d6a4e2c61",
+    "email": "shanshanma@admin.com",
+    "password": "$2b$10$eaU5BsvwHNs5t7z8tg0UN.IGPZWz3l8yxtUiYsjMCz8eCN4C4fGv6",
+    "role": "admin",
+    "createdAt": "2026-01-22T06:01:49.916Z"
   }
 ]

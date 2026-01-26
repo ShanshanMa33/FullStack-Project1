@@ -53,11 +53,8 @@ const signup = async (req, res, next) => {
 const login = async (req, res, next) => {
     try {
         const { email, password } = req.body || {};
-
+        if (!email || !password) throw new CustomAPIError("Email and password are required.", 400);
         if (!isvalidEmail(email)) throw new CustomAPIError("Invalid email format.", 400);
-        if (typeof password !== "string" || password.length === 0) {
-            throw new CustomAPIError("Password is required.", 400);
-        }
 
         const users = await readUsers();
         const user = users.find(user => user.email === email.trim().toLowerCase());
@@ -79,7 +76,8 @@ const login = async (req, res, next) => {
             }
         };
 
-        const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: "60d" });
+        const secret = process.env.JWT_SECRET || "project1_secret_key";
+        const token = jwt.sign(tokenPayload, secret, { expiresIn: '60d' });
 
         res.status(200).json({
             ok: true,
@@ -113,6 +111,9 @@ const forgotPassword = async (req, res, next) => {
 
         if (!isvalidEmail(email)) {
             throw new CustomAPIError("Invalid email format.", 400);
+            if (typeof password !== "string" || password.length === 0) {
+                throw new CustomAPIError("Password is required.", 400);
+            }
         }
 
         res.status(200).json({

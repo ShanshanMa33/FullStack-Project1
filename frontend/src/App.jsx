@@ -4,6 +4,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import './App.css';
 
+import Home from './pages/Auth/Home';
+
 //authentication pages
 import LogIn from './pages/Auth/SignIn';
 import SignUp from './pages/Auth/SignUp';
@@ -19,8 +21,8 @@ function App() {
       <Header />
       <main className="app-main">
         <Routes>
-          {/*default route*/}
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          {/*home route*/}
+          <Route path="/" element={<Home />} />
 
           {/*authentication routes*/}
           <Route path="/login" element={<LogIn />} />

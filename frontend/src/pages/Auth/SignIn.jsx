@@ -47,7 +47,7 @@ export default function SignIn() {
     return (
         <div className="auth-page">
             <div className="auth-modal">
-                <button className="auth-close" type="button" onClick={() => navigate(-1)}>×</button>
+                <button className="auth-close" type="button" onClick={() => navigate("/")}>×</button>
                 <h1 className="auth-title">Sign in to your account</h1>
 
                 {/** Clear messages on mount */}

@@ -59,7 +59,7 @@ export default function SignUp() {
     return (
         <div className="auth-page">
             <div className="auth-modal">
-                <button className="auth-close" type="button" onClick={() => navigate(-1)}>×</button>
+                <button className="auth-close" type="button" onClick={() => navigate("/")}>×</button>
                 <h1 className="auth-title">Sign up an account</h1>
                 <form className="auth-form" onSubmit={handleSubmit}>
                     <label className="auth-label">Email</label>

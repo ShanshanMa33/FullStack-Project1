@@ -1,0 +1,34 @@
+.search-box {
+    width: 100%;         
+    max-width: 528px;
+    margin-left: 60px;
+    height: 48px;
+    border: 1px solid #CCCCCC; 
+    border-radius: 4px;
+    background-color: #ffffff;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transform: rotate(0deg);
+  }
+  
+  .search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #111827; 
+  }
+  
+  .search-input::placeholder {
+    color: #979797; 
+  }
+  
+  .search-icon {
+    width: 24px;
+    height: 24px;
+  }

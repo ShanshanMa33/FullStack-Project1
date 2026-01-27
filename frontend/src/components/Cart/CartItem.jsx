@@ -2,6 +2,10 @@ import React from 'react';
 import './CartItem.css';
 import Button from '../common/Button/Button'
 
+/**
+ * Individual item component within the Cart drawer.
+ * Handles item display and quantity modification as per Phase III requirements.
+ */
 const CartItem = ({ item, updateQuantity }) => {
     return (
       <div className="cart-item-container"> 

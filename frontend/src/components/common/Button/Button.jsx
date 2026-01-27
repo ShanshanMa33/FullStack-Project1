@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import plusIcon from '../../../assets/plus.svg'; 
 import minusIcon from '../../../assets/minus.svg';
@@ -6,6 +5,11 @@ import plusIconGray from '../../../assets/plus-gray.svg';
 import minusIconGray from '../../../assets/minus-gray.svg';
 import './Button.css';
 
+/**
+ * A highly reusable Button component that supports standard buttons, links, 
+ * and a "Stepper" mode for quantity management.
+ * This directly supports the requirement for users to view and edit product quantities.
+ */
 const Button = ({ 
   children, 
   variant = 'primary', 

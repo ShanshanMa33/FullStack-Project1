@@ -4,8 +4,12 @@ import './Cart.css';
 import Button from '../common/Button/Button'; 
 import cartIcon from '../../assets/cart.svg';
 
+/**
+ * Cart trigger component for the global header.
+ * Displays real-time quantity and subtotal from the CartContext.
+ */
 const Cart = ({ onOpenCart }) => {
-  // 🌟 从全局获取实时数据
+  // Access global cart state for quantity and price synchronization across the app
   const { totalQuantity, subtotal } = useCart();
 
   return (

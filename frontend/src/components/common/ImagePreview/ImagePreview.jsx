@@ -2,6 +2,11 @@ import React from 'react';
 import './ImagePreview.css';
 import imagePlaceholder from '../../../assets/image-icon.svg';
 
+/**
+ * ImagePreview provides a real-time visual feedback for product images.
+ * Essential for the Create/Edit flow to ensure the user has a professional 
+ * preview before submitting the form.
+ */
 const ImagePreview = ({ imageUrl, className = '' }) => {
 
   const hasImage = imageUrl && imageUrl !== "http://" && imageUrl.trim() !== "";

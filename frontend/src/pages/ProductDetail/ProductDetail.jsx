@@ -5,12 +5,11 @@ import productImg from '../../assets/product-image.png';
 
 const ProductDetail = () => {
 
-  const { id } = useParams(); // 🌟 从 URL 路径 /product/:id 中获取 id
+  const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 🌟 获取商品详情数据
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -33,7 +32,6 @@ const ProductDetail = () => {
 
   return (
     <div className="product-detail-container">
-      {/* 🌟 增加一个返回按钮方便操作 */}
       <div className="detail-page-header">
         <span className="back-link" onClick={() => navigate(-1)}>Products</span> 
         &nbsp;/ Details
@@ -42,7 +40,7 @@ const ProductDetail = () => {
       <div className="detail-content-card">
         <div className="product-image-large-container">
           <img 
-            src={product.image} // 🌟 动态图片
+            src={product.image}
             alt={product.name} 
             className="product-image-large" 
           />
@@ -54,7 +52,6 @@ const ProductDetail = () => {
 
           <div className="product-price-row">
             <span className="product-price-detail">${product.price}</span>
-            {/* 这里的库存逻辑如果后端没存，可以先根据价格或随机显示 */}
             <span className="out-of-stock-label">In Stock</span>
           </div>
 

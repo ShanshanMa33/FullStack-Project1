@@ -2,6 +2,10 @@ import React from 'react';
 import './InputWithButton.css';
 import Button from '../Button/Button';
 
+/**
+ * A composite input component that attaches a button directly to the input field.
+ * Primarily used for the Image URL 'Upload/Preview' flow and the Discount Code 'Apply' section.
+ */
 const InputWithButton = ({ 
   label, 
   value, 

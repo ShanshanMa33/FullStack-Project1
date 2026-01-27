@@ -5,6 +5,10 @@ import CartItem from './CartItem';
 import CartSummary from './CartSummary';          
 import './CartModal.css';                          
 
+/**
+ * CartModal serves as the main container for the shopping cart interface.
+ * It coordinates data from CartContext to provide a unified view of the user's selection.
+ */
 const CartModal = ({ isOpen, onClose }) => {
   const { cartItems, updateQuantity, totalQuantity, subtotal } = useCart();
 

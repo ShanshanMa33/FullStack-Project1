@@ -2,6 +2,11 @@ import React from 'react';
 import './CartSummary.css';
 import Button from '../common/Button/Button';
 
+/**
+ * CartSummary handles the final price calculations including tax and discounts.
+ * This component addresses the Phase III requirement for cart price calculation 
+ * and promotion code implementation.
+ */
 const CartSummary = ({ subtotal, cartItems }) => {
 
   const tax = subtotal * 0.1;

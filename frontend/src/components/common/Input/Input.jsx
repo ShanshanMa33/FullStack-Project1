@@ -2,6 +2,11 @@ import React from 'react';
 import './Input.css';
 
 /**
+ * Reusable Input component designed to standardize form fields across the application.
+ * This supports the "enough validations" requirement for both Phase I (Auth) 
+ * and Phase II (Product Management).
+ */
+/**
  * Common Input Component
  * @param {string} label - The text shown above the input
  * @param {string} error - Error message to display

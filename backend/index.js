@@ -1,20 +1,20 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const productRoutes = require('./routes/productRoutes');
 const multer = require('multer');
 const fs = require('fs');
-
+const mongoose = require('mongoose');
 const app = express();
 
 // Global Middlewares
 app.use(cors());
-app.use(express.json()); // Essential for parsing POST request bodies
+app.use(express.json());
 
 // Serve static images
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
-
-// This allows to access images via http://localhost:8000/uploads/filename.jpg
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 // API Routes
@@ -43,13 +43,19 @@ const storage = multer.diskStorage({
     if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded' });
     }
-    
-    // Return the full URL of the uploaded image
     const imageUrl = `http://localhost:8000/uploads/${req.file.filename}`;
     res.status(200).json({ url: imageUrl });
   });
 
-const PORT = 8000;
-app.listen(PORT, () => {
-    console.log(`backend is running on: http://localhost:${PORT}/api/products`);
-});
+  const PORT = process.env.PORT || 8000;
+  const MONGO_URI = process.env.MONGO_URI;
+  mongoose.connect(MONGO_URI)
+  .then(() => {
+      console.log('Connected to MongoDB Atlas');
+      app.listen(PORT, () => {
+          console.log(`Server is running on: http://localhost:${PORT}`);
+      });
+  })
+  .catch(err => {
+      console.error('MongoDB connection error:', err.message);
+  });

@@ -1,0 +1,21 @@
+# DONT PUSH IT !
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+node_modules/
+/dist
+/build
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+
+uploads/
+public/uploads/
+
+.DS_Store
+Thumbs.db

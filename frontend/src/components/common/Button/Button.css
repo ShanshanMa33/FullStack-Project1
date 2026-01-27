@@ -1,0 +1,171 @@
+.custom-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.ghost { color: #FFFFFF; }
+.raw { padding: 0; height: auto; }
+.header { height: 30px; gap: 13px; font-weight: 600; font-size: 16px; }
+
+.custom-btn:hover { opacity: 0.7; }
+.custom-btn:active { transform: scale(0.95); }
+
+.custom-btn.primary {
+  background-color: #5048E5; 
+  color: #FFFFFF;          
+  font-weight: 700;
+}
+
+.custom-btn.primary:hover {
+  background-color: #4038c7; 
+  opacity: 1;
+}
+
+.custom-btn.xs {
+  height: 26px;
+  padding: 0 8px;
+  font-size: 10px;
+  font-weight: 600;
+  min-width: unset; 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 24px;  
+}
+
+.custom-btn.secondary {
+  background-color: #FFFFFF;
+  color: #666666;
+  border: 1px solid #CCCCCC;
+}
+
+
+.stepper-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #5048E5; 
+  border-radius: 4px;
+  box-sizing: border-box;
+  overflow: hidden; 
+}
+
+.stepper-icon {
+  width: 14px; 
+  height: 14px;
+  display: block;
+}
+
+.stepper-container:not(.theme-gray) .stepper-icon {
+  filter: brightness(0) invert(1);
+}
+
+.stepper-btn {
+  width: 30px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.stepper-val {
+  position: absolute;
+  left: 50%;        
+  transform: translateX(-50%); 
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: #FFFFFF;
+  pointer-events: none;
+}
+
+.stepper-container.theme-gray {
+  background-color: transparent !important; /* 杀掉紫色 */
+  width: 88px !important;
+  height: 26px !important;
+  display: flex !important;
+  border-radius: 4px;
+  overflow: visible !important; /* 允许边框重叠逻辑生效 */
+  position: relative;
+}
+
+/* 三个方格的通用样式：锁死 1px 细边框 */
+.theme-gray .stepper-btn, 
+.theme-gray .stepper-val {
+  background-color: #FFFFFF !important;
+  border: 1px solid #CCCCCC !important;
+  height: 26px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+}
+
+/* 按钮尺寸 30x26 */
+.theme-gray .stepper-btn {
+  width: 30px !important;
+  cursor: pointer;
+}
+
+/* 🌟 消除重叠黑线：中间和右边的框左移 1px */
+.theme-gray .stepper-val, 
+.theme-gray .stepper-btn:last-child {
+  margin-left: -1px !important;
+}
+
+/* 数字部分 30x26，拒绝绝对定位 */
+.theme-gray .stepper-val {
+  position: static !important; /* 强制改回标准流 */
+  transform: none !important;
+  width: 30px !important;
+  color: #111827 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+/* 还原图标：禁止反色，还原灰色 */
+.theme-gray .stepper-icon {
+  filter: none !important; /* 🌟 核心：禁止 invert(1) */
+  width: 10px !important;
+  height: 10px !important;
+}
+
+/* 精准圆角：只在头尾加 */
+.theme-gray .stepper-btn:first-child { border-radius: 4px 0 0 4px !important; }
+.theme-gray .stepper-btn:last-child { border-radius: 0 4px 4px 0 !important; }
+
+
+.custom-btn.promo {
+  width: 92px;
+  height: 48px;
+  padding: 0;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.custom-btn.checkout {
+  width: 458px;
+  height: 48px;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  border-radius: 4px;
+  margin: 18px 0 0 39px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

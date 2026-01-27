@@ -1,0 +1,57 @@
+.textarea-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .textarea-wrapper {
+    position: relative;
+    width: 100%;
+    height: 135px;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    background: #FFFFFF;
+    overflow: hidden;
+  }
+  
+  .custom-textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 12px;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color:#111827;
+  }
+  
+  .corner-decoration {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: 2px;
+    bottom: 3px;
+    pointer-events: none;
+  }
+  
+  .svg-line-long, .svg-line-short {
+    position: absolute;
+  }
+  
+  .svg-line-long { width: 10px; top: 0; left: 0; }
+  .svg-line-short { width: 6px; top: 5px; left: 5px; }
+
+  .custom-textarea:focus::placeholder {
+    color: transparent;
+  }
+
+.custom-textarea::placeholder {
+  font-family: 'Inter', sans-serif;
+  color: #9CA3AF;
+  font-size: 14px;            
+}          

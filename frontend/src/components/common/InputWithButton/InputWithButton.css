@@ -1,0 +1,24 @@
+.input-with-btn-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .inner-wrapper {
+    position: relative;
+    width: 100%;
+    height: 56px;
+  }
+  
+  .inner-upload-btn {
+    position: absolute !important;
+    width: 80px !important;
+    height: 39px !important;
+    right: 14px;
+    top: 8.5px;
+  }
+  
+  .with-btn {
+    padding-right: 100px !important; 
+  }

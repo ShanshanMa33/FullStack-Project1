@@ -78,7 +78,7 @@
     "category": "Mobile",
     "image": "http://localhost:8000/images/p9.png",
     "description": "A great choice for power and value.",
-    "quantity": 0
+    "quantity": ""
   },
   {
     "id": 10,

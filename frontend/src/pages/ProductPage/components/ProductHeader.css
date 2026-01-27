@@ -1,6 +1,5 @@
-/* --- Header 布局 --- */
 .product-page-header {
-    width: 1323px;          /* 您要求的精准宽度 */
+    width: 1323px; 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,10 +18,10 @@
   .header-controls {
     display: flex;
     align-items: center;
-    gap: 10px; /* 排序框和按钮之间的间距 */
+    gap: 10px;
   }
   
-  /* --- SortSelect 样式 --- */
+  /* --- SortSelect--- */
   .sort-by-container {
     width: 179px;
     height: 40px;
@@ -37,7 +36,6 @@
     font-weight: 600;
     color: #565656;
     
-    /* 自定义外观 */
     appearance: none;
     -webkit-appearance: none;
     background-color: #FFFFFF;
@@ -45,26 +43,18 @@
     border-radius: 4px;
     outline: none;
     
-    /* 背景箭头设置 */
     background-repeat: no-repeat;
-    background-position: right 10.75px center; /* 箭头垂直居中 */
+    background-position: right 10.75px center;
     background-size: 9.68px 6px;
     padding-left: 22.2px;
     cursor: pointer;
     
-    /* 解决文字垂直对齐问题 */
-    line-height: 38px; /* 40px 高度减去 2px 边框 */
+    line-height: 38px;
     vertical-align: middle;
   }
   
-  /* --- 通用按钮覆盖样式 --- */
   .add-product-btn-primary {
-    width: 133px !important;  /* 覆盖通用组件宽度 */
-    height: 40px !important; /* 覆盖通用组件高度 */
-    padding: 0 !important;   /* 清除内边距以保证精准尺寸 */
-    font-size: 14px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 133px !important;
+    height: 40px !important;
+    padding: 0 !important; 
   }

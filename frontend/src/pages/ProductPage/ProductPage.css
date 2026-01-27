@@ -12,8 +12,6 @@
     box-sizing: border-box;
   }
   
-  
-
   .product-page-header {
     width: 1323px;          
     display: flex;
@@ -117,4 +115,39 @@
     grid-template-columns: repeat(5, 242px);
     justify-content: space-between;
     row-gap: 40px; 
+  }
+
+  .search-info-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    margin-bottom: 10px;
+  }
+  
+  .search-text-content {
+    font-size: 18px;
+    color: #535353;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .results-count {
+    font-weight: 700;
+    color: #111827;
+    margin-right: 4px;
+  }
+
+  .search-term {
+    font-weight: 600;
+    color: #111827;
+    font-family: 'Inter', sans-serif;;
+  }
+
+  .search-action {
+    margin-top: 10px;
+  }
+  
+  .search-action button {
+    padding: 12px 32px;
+    min-width: 200px;
   }

@@ -14,17 +14,17 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   const getItemQuantity = (id) => {
-    return cartItems.find(item => item.id === id)?.quantity || 0;
+    return cartItems.find(item => item._id === id)?.quantity || 0;
   };
 
   const updateQuantity = (product, delta) => {
     setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.id === product.id);
+      const existingItem = prevItems.find(item => item._id === product._id);
       if (existingItem) {
         const newQty = existingItem.quantity + delta;
-        if (newQty <= 0) return prevItems.filter(item => item.id !== product.id);
+        if (newQty <= 0) return prevItems.filter(item => item._id !== product._id);
         return prevItems.map(item => 
-          item.id === product.id ? { ...item, quantity: newQty } : item
+          item._id === product._id ? { ...item, quantity: newQty } : item
         );
       } else if (delta > 0) {
         return [...prevItems, { ...product, quantity: 1 }];

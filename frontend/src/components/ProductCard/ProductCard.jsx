@@ -9,17 +9,17 @@ const ProductCard = ({ product, isAdmin }) => {
   
   const { getItemQuantity, updateQuantity } = useCart();
   
-  const count = getItemQuantity(product.id);
+  const count = getItemQuantity(product._id);
 
   if (!product) return null;
 
   const goToDetail = () => {
-    navigate(`/product/${product.id}`);
+    navigate(`/product/${product._id}`);
   };
 
   const handleEdit = (e) => {
     e.stopPropagation(); 
-    navigate(`/edit-product/${product.id}`);
+    navigate(`/edit-product/${product._id}`);
   };
 
   return (

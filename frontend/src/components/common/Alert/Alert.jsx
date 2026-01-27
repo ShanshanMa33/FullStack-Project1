@@ -1,27 +1,42 @@
-// components/common/Alert/Alert.jsx
-import React, { useEffect } from 'react';
+// src/components/common/Alert/Alert.jsx
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { hideAlert } from '../../../store/slices/alertSlice';
 import './Alert.css';
 
-const Alert = ({ message, type = 'success', onClose, duration = 3000 }) => {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      onClose();
-    }, duration);
-    return () => clearTimeout(timer);
-  }, [onClose, duration]);
+const Alert = () => {
+  const { show, message, type } = useSelector((state) => state.alert);
+  const dispatch = useDispatch();
+
+  if (!show) return null;
+
+  // 这里的逻辑是全站唯一的“真理”：只有 type 严格等于 'success' 才算成功
+  const isSuccess = type === 'success';
 
   return (
-    <div className={`alert-toast alert-${type}`}>
-      <div className="alert-icon-wrapper">
-        {/* 这里是一个简单的成功勾选图标 */}
-        {type === 'success' && (
-          <svg className="success-icon" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-          </svg>
-        )}
+    <div className="alert-wrapper">
+      <div className="alert-overlay" onClick={() => dispatch(hideAlert())} />
+      
+      <div className={`alert-modal alert-type-${isSuccess ? 'success' : 'error'}`}>
+        <div className="alert-icon-wrap">
+          {/* ✅ 图标严格随逻辑切换，成功显示绿勾，失败显示红叉 */}
+          <div className={`icon-circle ${isSuccess ? 'icon-success' : 'icon-error'}`}>
+            {isSuccess ? '✓' : '✕'}
+          </div>
+        </div>
+
+        <div className="alert-content">
+          {/* ✅ 这里的标题绝对不能写死！必须根据 isSuccess 切换 */}
+          <h3 className="alert-title">
+            {isSuccess ? 'Update Success' : 'Request Failed'}
+          </h3>
+          <p className="alert-message">{message}</p>
+        </div>
+
+        <button className="alert-action-btn" onClick={() => dispatch(hideAlert())}>
+          Got it
+        </button>
       </div>
-      <span className="alert-text">{message}</span>
-      <button className="alert-close" onClick={onClose}>&times;</button>
     </div>
   );
 };

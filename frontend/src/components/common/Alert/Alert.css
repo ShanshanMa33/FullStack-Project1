@@ -1,60 +1,92 @@
-/* Alert.css */
-.alert-toast {
+/* 容器与遮罩 */
+.alert-wrapper {
   position: fixed;
-  top: 30px;
-  right: 30px;
-  z-index: 9999;
-  min-width: 320px;
-  background: #ffffff;
-  padding: 16px 20px;
-  border-radius: 8px; /* 稍微圆润一点，更像现代 UI */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  inset: 0;
   display: flex;
   align-items: center;
-  gap: 12px;
-  
-  /* 动画：从右侧优雅滑入 */
-  animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  justify-content: center;
+  z-index: 10000;
 }
 
-/* 成功状态特有的边框 */
-.alert-success {
-  border-left: 5px solid #10B981; /* 经典的成功绿 */
+.alert-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px); /* 毛玻璃特效，非常有高级感 */
+  animation: fadeIn 0.3s ease;
 }
 
-.success-icon {
-  width: 24px;
-  height: 24px;
-  color: #10B981;
+/* 弹窗主体 */
+.alert-modal {
+  position: relative;
+  background: #ffffff;
+  width: 90%;
+  max-width: 400px;
+  padding: 32px 24px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  animation: modalScaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-top: 6px solid transparent;
 }
 
-.alert-text {
-  flex: 1;
-  font-size: 14px;
-  color: #1F2937;
-  font-weight: 500;
+.alert-type-success { border-top-color: #10b981; }
+.alert-type-error { border-top-color: #ef4444; }
+
+/* 图标样式 */
+.alert-icon-wrap {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
 }
 
-.alert-close {
-  background: none;
-  border: none;
-  font-size: 20px;
-  color: #9CA3AF;
-  cursor: pointer;
-  transition: color 0.2s;
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
 }
 
-.alert-close:hover {
-  color: #4B5563;
+/* 成功时的样式：绿色 */
+.icon-success {
+  background-color: #ecfdf5;
+  color: #10b981;
+}
+.alert-type-success {
+  border-top: 6px solid #10b981;
 }
 
-@keyframes slideInRight {
-  from {
-    transform: translateX(120%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+/* 失败时的样式：红色 */
+.icon-error {
+  background-color: #fef2f2;
+  color: #ef4444;
+}
+.alert-type-error {
+  border-top: 6px solid #ef4444;
+}
+
+/* 按钮颜色：如果是成功，可以用绿色按钮；失败用黑色按钮（或者保持统一） */
+.alert-action-btn {
+  background-color: #1f2937; /* Navy Blue */
+  color: white;
+  /* ...其他属性... */
+}
+.alert-action-btn:hover {
+  background-color: #374151;
+  transform: translateY(-1px);
+}
+
+/* 动画定义 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalScaleUp {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }

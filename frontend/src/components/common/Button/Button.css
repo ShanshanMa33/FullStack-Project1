@@ -21,6 +21,7 @@
   background-color: #5048E5; 
   color: #FFFFFF;          
   font-weight: 700;
+  font-size: 14px;
 }
 
 .custom-btn.primary:hover {
@@ -168,4 +169,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.custom-btn.danger {
+  background-color: #d9363e;
+  color: #ffffff;
+  border: 1px solid #d9363e;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.custom-btn.danger:hover {
+  background-color: #ff4d4f; 
+  border-color: #ff4d4f;
+  box-shadow: 0 2px 8px rgba(217, 54, 62, 0.35);
+}
+
+.custom-btn.danger:active {
+  background-color: #b3242b;
+  border-color: #b3242b;
+  transform: translateY(1px);
+}
+
+.custom-btn.danger:disabled {
+  background-color: #ffccc7;
+  border-color: #ffa39e;
+  color: rgba(0, 0, 0, 0.25);
+  cursor: not-allowed;
 }

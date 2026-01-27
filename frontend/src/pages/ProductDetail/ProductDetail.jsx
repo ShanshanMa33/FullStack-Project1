@@ -63,7 +63,7 @@ const ProductDetail = () => {
             <button className="add-to-cart-btn">Add To Cart</button>
             <button 
               className="edit-product-btn"
-              onClick={() => navigate(`/edit-product/${product.id}`)}
+              onClick={() => navigate(`/edit-product/${product._id}`)}
             >
               Edit
             </button>

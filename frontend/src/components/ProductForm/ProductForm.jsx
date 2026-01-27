@@ -14,7 +14,7 @@ const categoryOptions = [
   { label: 'Accessories', value: 'Accessories' }
 ];
 
-const ProductForm = ({ mode = 'create', initialData = {}, onSubmit }) => {
+const ProductForm = ({ mode = 'create', initialData = {}, onSubmit, onDelete }) => {
   const fileInputRef = useRef(null);
   const [isUploading, setIsUploading] = useState(false);
   const isEdit = mode === 'edit';
@@ -73,6 +73,13 @@ const ProductForm = ({ mode = 'create', initialData = {}, onSubmit }) => {
     } finally {
       setIsUploading(false);
     }
+  };
+
+  const handleChange = (field, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
   };
 
   return (
@@ -155,6 +162,15 @@ const ProductForm = ({ mode = 'create', initialData = {}, onSubmit }) => {
         >
           {isEdit ? 'Update Product' : 'Add Product'}
         </Button>
+        {mode === 'edit' && (
+          <Button 
+            variant="danger" 
+            className="delete-product-btn"
+            onClick={onDelete}
+          >
+            Delete Product
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -6,10 +6,10 @@ import CreateProduct from './pages/CreateProduct/CreateProduct';
 import ProductPage from './pages/ProductPage/ProductPage';
 import Footer from './components/Footer';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
-import AuthPage from './pages/Auth/AuthPage';
 import EditProduct from './pages/EditProduct/EditProduct';
 import { CartProvider } from './context/CartContext';
 import CartModal from './components/Cart/CartModal';
+import Alert from './components/common/Alert/Alert';
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(true);

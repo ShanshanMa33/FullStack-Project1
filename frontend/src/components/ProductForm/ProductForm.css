@@ -66,11 +66,16 @@
     width: 564px;
     margin-top: 32px;
     display: flex;
+    gap: 16px;
     justify-content: flex-start;
   }
   
   .add-product-btn {
     width: 133px;
     height: 40px;
-    font-size: 14px;
+  }
+
+  .delete-product-btn{
+    width: 133px;
+    height: 40px;
   }

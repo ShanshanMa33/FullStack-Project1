@@ -24,7 +24,7 @@ const CartModal = ({ isOpen, onClose }) => {
             <div className="empty-cart-msg">Your cart is empty.</div>
           ) : (
             cartItems.map((item) => (
-              <CartItem key={item.id} item={item} updateQuantity={updateQuantity} />
+              <CartItem key={item._id} item={item} updateQuantity={updateQuantity} />
             ))
           )}
         </div>

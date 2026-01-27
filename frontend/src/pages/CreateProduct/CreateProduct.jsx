@@ -2,11 +2,16 @@ import React from 'react';
 import ProductForm from '../../components/ProductForm/ProductForm';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * CreateProduct Page Component.
+ * Simplified version using browser native alerts to ensure stable workflow.
+ */
 const CreateProduct = () => {
-
   const navigate = useNavigate(); 
-  const showAlert = useAlert();
 
+  /**
+   * handleCreateSubmit: Processes the form data and communicates with the backend.
+   */
   const handleCreateSubmit = async (formData) => {
     try {
       const response = await fetch('http://localhost:8000/api/products', {
@@ -23,26 +28,22 @@ const CreateProduct = () => {
 
       const result = await response.json();
 
-      if (result.success) {
-        showAlert('Product created successfully!', 'success');
-        
-        navigate('/products'); 
+      if (response.ok && result.success) {
+        window.alert('Product created successfully!');
+        navigate('/'); 
       } else {
-        showAlert(result.message || 'Failed to create product', 'error');
+        window.alert(result.message || 'Failed to create product');
       }
     } catch (err) {
       console.error("Submission failed:", err);
-      showAlert('Network error, please check your server.', 'error');
+      window.alert('Network error: Please check if your backend server is running on port 8000.');
     }
   };
 
   return (
     <div className="form-page-container">
       <div className="form-main-layout">
-        {/* Uses the global .page-title from App.css */}
         <h1 className="page-title">Create Product</h1>
-        
-        {/* The reusable form shell */}
         <ProductForm mode="create" onSubmit={handleCreateSubmit} />
       </div>
     </div>

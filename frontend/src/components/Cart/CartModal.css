@@ -1,0 +1,44 @@
+.cart-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  min-height: 100vh;       /* 至少覆盖一屏 */
+  height: 100%;            /* 覆盖内容高度 */
+
+  background-color: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+
+
+
+.cart-modal {
+  width: 544px;
+  height: 808px;
+
+  margin-top: 2px;
+  margin-right: 0;
+
+  background-color: #ffffff;
+  border-radius: 4px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* 3. 内部商品列表：这是 808px 里面唯一准动的地方 */
+.cart-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 38px;
+}

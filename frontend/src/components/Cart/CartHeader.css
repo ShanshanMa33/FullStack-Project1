@@ -1,0 +1,41 @@
+.cart-modal-header {
+    width: 542px;
+    height: 81px;
+    background-color: #5048E5;
+    display: flex;
+    align-items: center;
+    padding: 0 38px;
+    box-sizing: border-box;
+  }
+  
+  .cart-title-container {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  
+  .cart-title-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.38;
+    color: #FFFFFF;
+    margin: 0;
+  }
+  
+  .cart-quantity-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.38;
+    color: #FFFFFF;
+  }
+  
+  .close-x {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-size: 28px;
+    cursor: pointer;
+  }

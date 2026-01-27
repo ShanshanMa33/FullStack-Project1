@@ -1,0 +1,20 @@
+import React from 'react';
+import './CartHeader.css';
+
+const CartHeader = ({ totalQuantity, onClose }) => {
+  return (
+    <div className="cart-modal-header">
+
+      <div className="cart-title-container">
+        <h2 className="cart-title-text">Cart</h2>
+        <span className="cart-quantity-text">({totalQuantity})</span>
+      </div>
+      
+      <button className="close-x" onClick={onClose} aria-label="Close Cart">
+        ✕
+      </button>
+    </div>
+  );
+};
+
+export default CartHeader;

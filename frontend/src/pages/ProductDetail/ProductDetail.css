@@ -1,0 +1,217 @@
+.product-detail-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F9FAFB; 
+    min-height: 100vh;
+  }
+  
+  .detail-page-header {
+    width: 1193px;
+    height: 44px;
+    margin-left: 50px;
+    margin-right: auto;
+    margin-top: 128px; 
+    font-size: 32px;
+    font-weight: 700;
+    color: #111827;
+    text-align: left;
+  }
+  
+  .detail-content-card {
+    width: 1323px;
+    min-height: 682px; 
+    background: #FFFFFF;
+    
+    border: 1px;
+    border-radius: 4px;
+    opacity: 1;
+    box-sizing: border-box;
+
+    margin-top: 24px;
+    margin-bottom: 60px; 
+
+    display: flex;
+    padding: 40px; 
+    gap: 48px;    
+  }
+
+  .product-image-large {
+    width: 662px;
+    height: 597px;
+    background-color: #C4C4C4;
+    opacity: 1;
+    flex-shrink: 0;
+  }
+  
+  .product-info-details {
+   
+    flex-grow: 1;
+    padding-right: 40px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-info-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 35px; 
+  }
+  
+  .product-category {
+    width: 84px;
+    height: 22px;
+    
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; 
+    font-size: 16px;
+    line-height: 1.38;
+    
+    color: #6B7280;
+    
+    margin: 0;
+    opacity: 1;
+  }
+
+  .product-title {
+    width: 389px;
+    height: 44px;
+    margin-top: 8px;
+    margin-bottom: 0;
+  
+    font-family: 'Inter', sans-serif;
+    font-weight: 700; 
+    font-size: 32px;  
+    line-height: 44px;
+    
+    color: #535353; 
+    opacity: 1;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+
+  .product-price-row {
+    display: flex;
+    align-items: center;
+    margin-top: 16px; 
+    gap: 12px; 
+  }
+  
+  .product-price-detail {
+    width: auto; 
+    height: 44px;
+  
+    font-family: 'Inter', sans-serif;
+    font-weight: 700; 
+    font-size: 32px;
+    line-height: 1.38; 
+    color: #111827; 
+    opacity: 1;
+  }
+
+  .out-of-stock-label {
+    width: 76px;
+    height: 30px;
+    border-radius: 4px;
+    opacity: 1;
+  
+    margin-top: 4px; 
+  
+    background-color: #FEE2E2; 
+    color: #EA3D2F;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;  
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .product-description {
+    width: 428px;
+    height: 88px;
+    
+    margin-top: 16px;
+    margin-bottom: 0;
+  
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; 
+    font-size: 16px;
+    line-height: 1.38; 
+    
+    color: #6B7280; 
+    opacity: 1;
+  
+    word-wrap: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; 
+    -webkit-box-orient: vertical;
+  }
+
+  .product-actions {
+    display: flex;
+    margin-top: 41px;
+    justify-content: flex-start;
+    gap: 20px; 
+  }
+  
+  .add-to-cart-btn {
+    width: 133px;
+    height: 40px;
+    background-color: #5048E5;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 1;
+  
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.38;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #3f38bc;
+  }
+
+  .edit-product-btn {
+    width: 133px;
+    height: 40px;
+    background-color: #FFFFFF; 
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 1;
+
+    color: #535353; 
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; 
+    font-size: 14px;
+    line-height: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .edit-product-btn:hover {
+    background-color: #F9FAFB;
+    border-color: #999999;
+  }

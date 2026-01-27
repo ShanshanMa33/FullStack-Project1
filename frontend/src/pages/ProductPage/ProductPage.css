@@ -1,0 +1,120 @@
+
+  .product-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    width: 100%;
+    min-height: 100vh;
+    background-color: #F9FAFB; 
+
+    padding-left: 60px;     
+    padding-top: 128px;       
+    box-sizing: border-box;
+  }
+  
+  
+
+  .product-page-header {
+    width: 1323px;          
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;     
+  }
+  
+  .product-title {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 32px;     
+    line-height: 138%;   
+    color: #111827;
+  }
+  
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;            
+  }
+  
+ 
+  .sort-by-container {
+    width: 179px;        
+    height: 40px;         
+  }
+
+  .sort-select {
+    width: 179px;         
+    height: 40px;       
+    box-sizing: border-box;
+ 
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;      
+    font-weight: 600;     
+    color: #565656;       
+    
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url('../../assets/Triangle.svg');
+    background-repeat: no-repeat;
+  
+  
+    background-position: right 10.75px top 18px;
+  
+    background-size: 9.68px 6px;
+    line-height: 40px;   
+    padding-top: 0;      
+    padding-bottom: 0;
+    padding-left: 22.2px; 
+    vertical-align: middle;
+  
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+    outline: none;
+    overflow: visible;   
+  }
+
+  .sort-select:focus {
+    background-image: url('../../assets/Triangle-up.svg');
+    background-position: right 10.75px top 18px;
+  }
+  
+  .add-product-btn-primary {
+    width: 133px;         
+    height: 40px;         
+    background: #5048E5;  
+    border-radius: 4px;  
+    border: none;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+
+  .product-list-container {
+    width: 1323px;
+    height: auto;
+    min-height:400px;
+    min-height: 682px;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    padding: 40px 30px;
+    margin-bottom: 56px;
+    margin-left: 0;           
+    border: none;   
+    /* margin: 24px auto;          */
+    
+    box-sizing: border-box;
+  }
+
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 242px);
+    justify-content: space-between;
+    row-gap: 40px; 
+  }

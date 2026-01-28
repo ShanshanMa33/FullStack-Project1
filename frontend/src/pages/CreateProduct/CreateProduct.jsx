@@ -30,7 +30,7 @@ const CreateProduct = () => {
 
       if (response.ok && result.success) {
         window.alert('Product created successfully!');
-        navigate('/'); 
+        navigate(-1); 
       } else {
         window.alert(result.message || 'Failed to create product');
       }

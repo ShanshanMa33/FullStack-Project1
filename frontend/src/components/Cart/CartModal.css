@@ -40,3 +40,10 @@
   overflow-y: auto;
   padding: 24px 38px;
 }
+
+.empty-cart-msg{
+  font-family: 'Inter';
+  font-size: 20px;
+  color: #111827;
+  font-weight: 600;
+}

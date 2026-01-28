@@ -25,7 +25,7 @@ const EditProduct = () => {
 
       if (response.ok) {
         window.alert('Product deleted successfully!');
-        navigate('/');
+        navigate(-1);
       } else {
         const error = await response.json();
         window.alert('Delete failed: ' + error.message);
@@ -52,7 +52,7 @@ const EditProduct = () => {
 
       if (response.ok) {
         window.alert("Product updated successfully!");
-        navigate('/');
+        navigate(-1);
       } else {
         window.alert(`Failed: ${result.message || "Unknown error"}`);
       }

@@ -7,14 +7,23 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import Button from '../../components/common/Button/Button';
 
 const ProductPage = ({ isAdmin }) => {
+  
   const [products, setProducts] = useState([]);
-  const [filterCategory, setFilterCategory] = useState('All');
-  const [sortType, setSortType] = useState('Last added');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchParams] = useSearchParams();
-  const itemsPerPage = 10;
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const searchQuery = searchParams.get('search') || '';
+  const filterCategory = searchParams.get('category') || 'All';
+  const sortType = searchParams.get('sort') || 'Last added';
+  const currentPage = parseInt(searchParams.get('page') || '1');
+  const itemsPerPage = 10;
+  
+  
+
+  const updateParams = (newParams) => {
+    const current = Object.fromEntries(searchParams.entries());
+    setSearchParams({ ...current, ...newParams }); 
+  };
 
   const processedProducts = products
     .sort((a, b) => {
@@ -29,24 +38,20 @@ const ProductPage = ({ isAdmin }) => {
   const currentItems = processedProducts.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    setCurrentPage(1);
-  }, [filterCategory, searchQuery]);
+    const fetchProducts = () => {
+      const params = new URLSearchParams();
+      if (searchQuery) params.append('search', searchQuery);
+      if (filterCategory !== 'All') params.append('category', filterCategory);
 
-  const fetchProducts = () => {
-    const params = new URLSearchParams();
-    if (searchQuery) params.append('search', searchQuery);
-    if (filterCategory !== 'All') params.append('category', filterCategory);
+      fetch(`http://localhost:8000/api/products?${params.toString()}`)
+        .then(res => res.json())
+        .then(data => {
+          const result = Array.isArray(data) ? data : (data.data || []);
+          setProducts(result); 
+        })
+        .catch(err => console.error("fetch error:", err));
+    };
 
-    fetch(`http://localhost:8000/api/products?${params.toString()}`)
-      .then(res => res.json())
-      .then(data => {
-        const result = Array.isArray(data) ? data : (data.data || []);
-        setProducts(result); 
-      })
-      .catch(err => console.error("fetch error:", err));
-  };
-
-  useEffect(() => {
     fetchProducts();
   }, [searchQuery, filterCategory]);
 
@@ -56,7 +61,10 @@ const ProductPage = ({ isAdmin }) => {
       const res = await fetch(`http://localhost:8000/api/products/${mongoId}`, { 
         method: 'DELETE' 
       });
-      if (res.ok) fetchProducts();
+      if (res.ok) {const params = new URLSearchParams(searchParams);
+        fetch(`http://localhost:8000/api/products?${params.toString()}`)
+          .then(res => res.json())
+          .then(data => setProducts(Array.isArray(data) ? data : (data.data || [])));}
     } catch (err) {
       console.error("fail to delete:", err);
     }
@@ -67,9 +75,9 @@ const ProductPage = ({ isAdmin }) => {
       <ProductHeader
         isAdmin={isAdmin} 
         currentCategory={filterCategory} 
-        onCategoryChange={setFilterCategory} 
+        onCategoryChange={(val) => updateParams({ category: val, page: 1 })} 
         currentSort={sortType}
-        onSortChange={setSortType}
+        onSortChange={(val) => updateParams({ sort: val })}
       />
         
       <div className="product-list-container">
@@ -106,7 +114,7 @@ const ProductPage = ({ isAdmin }) => {
         totalItems={processedProducts.length} 
         itemsPerPage={itemsPerPage} 
         currentPage={currentPage} 
-        onPageChange={setCurrentPage} 
+        onPageChange={(val) => updateParams({ page: val })} 
       />
     </div>
   );

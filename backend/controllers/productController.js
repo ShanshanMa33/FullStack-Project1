@@ -4,7 +4,7 @@ const Product = require('../models/productModel');
  * @desc    Get all products (Supports Search and Category filtering)
  * @route   GET /api/products
  */
-exports.getAllProducts = async (req, res) => {
+const getAllProducts = async (req, res) => {
     try {
         const { search, category } = req.query;
         let dbQuery = {};
@@ -28,7 +28,7 @@ exports.getAllProducts = async (req, res) => {
  * @desc    Create a new product
  * @route   POST /api/products
  */
-exports.createProduct = async (req, res) => {
+const createProduct = async (req, res) => {
     try {
         // Ensure price and quantity are stored as numbers
         const newProduct = new Product({
@@ -50,7 +50,7 @@ exports.createProduct = async (req, res) => {
  * @desc    Get a single product by ID
  * @route   GET /api/products/:id
  */
-exports.getProductById = async (req, res) => {
+const getProductById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);
         if (product) {
@@ -67,7 +67,7 @@ exports.getProductById = async (req, res) => {
  * @desc    Update an existing product
  * @route   PUT /api/products/:id
  */
-exports.updateProduct = async (req, res) => {
+const updateProduct = async (req, res) => {
     try {
         const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id, 
@@ -89,7 +89,7 @@ exports.updateProduct = async (req, res) => {
  * @desc    Delete a product
  * @route   DELETE /api/products/:id
  */
-exports.deleteProduct = async (req, res) => {
+const deleteProduct = async (req, res) => {
     try {
         const deletedProduct = await Product.findByIdAndDelete(req.params.id);
         if (deletedProduct) {
@@ -100,5 +100,13 @@ exports.deleteProduct = async (req, res) => {
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
+};
+
+module.exports = {
+    getAllProducts,
+    createProduct,
+    getProductById,
+    updateProduct,
+    deleteProduct
 };
 

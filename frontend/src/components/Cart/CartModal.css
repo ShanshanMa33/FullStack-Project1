@@ -4,8 +4,8 @@
   left: 0;
 
   width: 100%;
-  min-height: 100vh;       /* 至少覆盖一屏 */
-  height: 100%;            /* 覆盖内容高度 */
+  min-height: 100vh;     
+  height: 100%;        
 
   background-color: rgba(0, 0, 0, 0.45);
   z-index: 1000;
@@ -35,8 +35,6 @@
   flex-direction: column;
 }
 
-
-/* 3. 内部商品列表：这是 808px 里面唯一准动的地方 */
 .cart-modal-body {
   flex: 1;
   overflow-y: auto;

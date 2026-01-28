@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const savedCart = localStorage.getItem('cartItems');
+const savedPromo = localStorage.getItem('appliedPromo');
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
     items: savedCart ? JSON.parse(savedCart) : [], // Initialize: empty cart
+    appliedPromo: savedPromo ? JSON.parse(savedPromo) : null,
     isCartModalOpen: false,
   },
   reducers: {
@@ -36,17 +38,29 @@ const cartSlice = createSlice({
           }
         }
       },
-  
-    // clear cart
-    clearCart: (state) => {
-        state.items = [];
+    
+      setPromo: (state, action) => {
+        state.appliedPromo = action.payload;
+        localStorage.setItem('appliedPromo', JSON.stringify(action.payload));
     },
 
-    toggleCartModal: (state) => {
+      clearPromo: (state) => {
+        state.appliedPromo = null;
+        localStorage.removeItem('appliedPromo');
+    },
+
+      clearCart: (state) => {
+        state.items = [];
+        state.appliedPromo = null;
+        localStorage.removeItem('cartItems');
+        localStorage.removeItem('appliedPromo');
+    },
+
+      toggleCartModal: (state) => {
         state.isCartModalOpen = !state.isCartModalOpen;
     },
 
-    setCartModalOpen: (state, action) => {
+      setCartModalOpen: (state, action) => {
         state.isCartModalOpen = action.payload;
       }
     
@@ -54,5 +68,5 @@ const cartSlice = createSlice({
 });
 
 export const { addToCart, removeFromCart, updateQuantity, clearCart, toggleCartModal, 
-    setCartModalOpen } = cartSlice.actions;
+    setCartModalOpen, setPromo, clearPromo } = cartSlice.actions;
 export default cartSlice.reducer;

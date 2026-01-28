@@ -18,5 +18,4 @@ router.get('/products/:id', productController.getProductById);
 router.put('/products/:id', productController.updateProduct);
 
 
-// 3. Export the router to be used in index.js
 module.exports = router;

@@ -1,35 +1,47 @@
 /* CartSummary.css */
-
-/* 1. 底部总容器 */
 .cart-modal-footer {
     width: 100%;
-    padding: 32px 40px; /* 增加左右内边距，让内容不要贴边 */
+    /* padding: 32px 40px; */
     background-color: #FFFFFF;
-    border-top: 1px solid #F3F4F6; /* 顶部的分割线 */
     box-sizing: border-box;
   }
-  
-  /* 2. 折扣码区域 */
+
+  .promo-container {
+    width: 100%;        
+    min-height: 180px;    
+    background-color: #ffffff; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
   .promo-section {
-    margin-bottom: 32px; /* 与下方结算区的间距 */
+    width: 100%;
+    height: 80px;
+
+    border-radius: 4px;
+
+    margin-bottom: 16px;
+    padding: 32px 40px;
   }
   
   .promo-label {
     display: block;
     font-size: 14px;
-    color: #6B7280; /* 灰色字 */
+    color: #6B7280; 
     margin-bottom: 8px;
     font-weight: 500;
   }
   
   .promo-row {
     display: flex;
-    gap: 12px; /* 输入框和按钮的间距 */
-    height: 48px; /* 增加高度更显大气 */
+    gap: 12px;
+    height: 48px;
   }
   
   .promo-input-field {
-    flex: 1; /* 占据剩余宽度 */
+    flex: 1;
     border: 1px solid #D1D5DB;
     border-radius: 4px;
     padding: 0 16px;
@@ -38,56 +50,50 @@
   }
   
   .promo-input-field:focus {
-    border-color: #5048E5; /* 聚焦时的紫色边框 */
+    border-color: #5048E5;
   }
   
-  /* 3. 结算价格明细区 */
   .checkout-box {
     width: 100%;
+    border-width: 1px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 4px 0px 4px 0px #00000040;
+
   }
   
-  /* 🌟 核心：解决文字挤在一起的关键 */
   .summary-line {
     display: flex;
-    justify-content: space-between; /* 文字在左，金额在右，彻底拉开 */
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
     font-size: 16px;
-    color: #374151;
+    font-weight: 600;
+    color: #111827;
+    padding: 0 20px;
   }
   
   .amount {
     font-weight: 500;
-    color: #111827; /* 金额颜色加深 */
+    color: #111827; 
   }
+
   
-  /* 4. 总价加粗行 */
-  .total-bold {
-    margin-top: 24px;
-    margin-bottom: 32px;
-    padding-top: 16px;
-    border-top: 1px dashed #E5E7EB; /* 总价上方加虚线更有设计感 */
-    font-size: 20px; /* 总价字号加大 */
-    font-weight: 700;
-    color: #111827;
-  }
-  
-  /* 5. 结算按钮容器 */
   .checkout-btn-container {
     width: 100%;
     display: flex;         
     justify-content: center;  
     align-items: center;      
-    margin-top: 4px;
+    /* margin-top: 4px; */
   }
   
   .checkout-btn-container button {
-    width: 458px !important; 
-    height: 48px !important; 
-    border-radius: 4px !important;
-    
-    font-size: 16px !important;
-    font-weight: 600 !important;
+    width: 90%; 
+    height: 48px; 
+    border-radius: 4px;
+    margin: 0 !important;
+    font-size: 15px;
+    font-weight: 600;
     display: flex;
     justify-content: center;
     align-items: center;

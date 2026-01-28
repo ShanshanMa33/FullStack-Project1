@@ -104,10 +104,9 @@
     border-bottom-right-radius: 4px;
   }
   
-  /* 中间数字框：确保它两头都是直角 */
   .cart-modal .stepper-num {
     font-family: 'Inter', sans-serif;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
     color: #111827;
     cursor: default;

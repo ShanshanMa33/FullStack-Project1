@@ -8,6 +8,7 @@ const multer = require('multer');
 const fs = require('fs');
 const mongoose = require('mongoose');
 const app = express();
+const promoRoutes = require('./routes/promoRoutes');
 
 // Global Middlewares
 app.use(cors());
@@ -19,6 +20,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 // API Routes
 app.use('/api', productRoutes);
+app.use('/api/promo', promoRoutes);
 
 const uploadDir = path.join(__dirname, 'public', 'uploads');
 if (!fs.existsSync(uploadDir)) {

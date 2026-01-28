@@ -1,15 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../../context/CartContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart, updateQuantity } from '../../store/slices/cartSlice';
 import Button from '../../components/common/Button/Button';
 import './ProductCard.css';
 
 const ProductCard = ({ product, isAdmin }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   
-  const { getItemQuantity, updateQuantity } = useCart();
-  
-  const count = getItemQuantity(product._id);
+  const cartItem = useSelector(state => 
+    state.cart.items.find(item => item._id === product._id)
+  );
+
+  const count = cartItem ? cartItem.quantity : 0;
 
   if (!product) return null;
 
@@ -45,22 +49,23 @@ const ProductCard = ({ product, isAdmin }) => {
           variant="primary" 
           size="xs"             
           className="card-add-btn"
+          disabled={product.quantity <= 0}
           isStepper={count > 0}      
           count={count}         
           onIncrease={(e) => { 
             e.stopPropagation(); 
-            updateQuantity(product, 1);
+            dispatch(addToCart(product));
           }}
           onDecrease={(e) => { 
             e.stopPropagation(); 
-            updateQuantity(product, -1);
+            dispatch(updateQuantity({ id: product._id, amount: -1 }));
           }}
           onClick={(e) => { 
             e.stopPropagation(); 
-            if(count === 0) updateQuantity(product, 1);
-          }} 
+            if(count === 0) dispatch(addToCart(product));
+          }}
         >
-          {count === 0 ? "Add to Cart" : ""}
+          Add to Cart
         </Button>
 
         {isAdmin && (

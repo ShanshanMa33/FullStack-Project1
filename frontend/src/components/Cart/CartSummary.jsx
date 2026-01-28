@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import './CartSummary.css';
 import Button from '../common/Button/Button';
 
@@ -7,8 +8,10 @@ import Button from '../common/Button/Button';
  * This component addresses the Phase III requirement for cart price calculation 
  * and promotion code implementation.
  */
-const CartSummary = ({ subtotal, cartItems }) => {
+const CartSummary = () => {
 
+  const cartItems = useSelector((state) => state.cart.items);
+  const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   const tax = subtotal * 0.1;
   const discount = cartItems.length > 0 ? 20.00 : 0;
   const estimatedTotal = subtotal + tax - discount;

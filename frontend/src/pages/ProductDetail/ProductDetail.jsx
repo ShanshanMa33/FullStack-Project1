@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ProductDetail.css';
-import productImg from '../../assets/product-image.png';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../store/slices/cartSlice';
+import Button from '../../components/common/Button/Button';
 
 const ProductDetail = () => {
-
+  const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
@@ -16,7 +18,7 @@ const ProductDetail = () => {
         const response = await fetch(`http://localhost:8000/api/products/${id}`);
         if (!response.ok) throw new Error('Product not found');
         const data = await response.json();
-        setProduct(data);
+        setProduct(data.data || data);
       } catch (err) {
         console.error("Fetch detail error:", err);
       } finally {
@@ -26,6 +28,12 @@ const ProductDetail = () => {
 
     fetchProduct();
   }, [id]);
+
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch(addToCart(product));
+    }
+  };
 
   if (loading) return <div className="loading-state">Loading...</div>;
   if (!product) return <div className="error-state">Product not found!</div>;
@@ -52,21 +60,32 @@ const ProductDetail = () => {
 
           <div className="product-price-row">
             <span className="product-price-detail">${product.price}</span>
-            <span className="out-of-stock-label">In Stock</span>
+            <span className={`stock-tag ${product.quantity > 0 ? 'in' : 'out'}`}>
+              {product.quantity > 0 ? 'In Stock' : 'Out of Stock'}
+            </span>
           </div>
 
           <p className="product-description">
-            {product.description || "This product has no detailed description yet. Enjoy the premium experience with our latest technology and design."}
+            {product.description || "This product has no detailed description yet."}
           </p>
 
           <div className="product-actions">
-            <button className="add-to-cart-btn">Add To Cart</button>
-            <button 
+          <Button 
+              variant="primary"
+              className='add-to-cart-btn'
+              onClick={handleAddToCart}
+              disabled={product.quantity <= 0}
+            >
+              Add To Cart
+            </Button>
+            <Button 
+              variant="secondary"
               className="edit-product-btn"
               onClick={() => navigate(`/edit-product/${product._id}`)}
+              style={{ marginLeft: '12px' }}
             >
               Edit
-            </button>
+            </Button>
           </div>
         </div>
       </div>

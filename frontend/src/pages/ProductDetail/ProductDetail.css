@@ -115,25 +115,31 @@
     opacity: 1;
   }
 
-  .out-of-stock-label {
+  .stock-tag {
+    padding: 4px 12px;
+    border-radius: 20px;
     width: 76px;
     height: 30px;
     border-radius: 4px;
-    opacity: 1;
-  
-    margin-top: 4px; 
-  
-    background-color: #FEE2E2; 
-    color: #EA3D2F;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;  
+    font-family: 'Inter';
+    font-size: 10px;
     font-weight: 500;
     white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .stock-tag.in {
+    background-color: #E6FFFA;
+    color: #38B2AC;
+    border: 1px solid #B2F5EA;
+  }
+  
+  .stock-tag.out {
+    background-color: #FFF5F5;
+    color: #E53E3E;
+    border: 1px solid #FED7D7;
   }
 
   .product-description {

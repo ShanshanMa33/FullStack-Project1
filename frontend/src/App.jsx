@@ -7,16 +7,11 @@ import ProductPage from './pages/ProductPage/ProductPage';
 import Footer from './components/Footer';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import EditProduct from './pages/EditProduct/EditProduct';
-import { CartProvider } from './context/CartContext';
 import CartModal from './components/Cart/CartModal';
-import Alert from './components/common/Alert/Alert';
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(true);
-
-  const [isCartOpen, setIsCartOpen] = useState(false);
   return (
-    <CartProvider>
     <Router>
       <Header isAdmin={isAdmin} 
           setIsAdmin={setIsAdmin} 
@@ -38,14 +33,10 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
         </Routes>
       </div>
-      <CartModal 
-          isOpen={isCartOpen} 
-          onClose={() => setIsCartOpen(false)} 
-        />
+      <CartModal />
       <Footer />
     
     </Router>
-    </CartProvider>
   );
 }
 

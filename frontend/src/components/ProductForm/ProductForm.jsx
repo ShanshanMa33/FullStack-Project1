@@ -6,6 +6,7 @@ import Select from '../common/Select/Select';
 import InputWithButton from '../common/InputWithButton/InputWithButton';
 import ImagePreview from '../common/ImagePreview/ImagePreview';
 import Button from '../common/Button/Button';
+import { apiUploadImage } from '../../api/products';
 
 const categoryOptions = [
   { label: 'Mobile', value: 'Mobile' },
@@ -42,7 +43,7 @@ const ProductForm = ({ mode = 'create', initialData = {}, onSubmit, onDelete }) 
         image: initialData.image || ''
       });
     }
-  }, [isEdit, initialData]); // Re-run whenever initialData is fetched
+  }, [isEdit, initialData]);
 
   // 3. Generic Change Handler
 
@@ -59,17 +60,14 @@ const ProductForm = ({ mode = 'create', initialData = {}, onSubmit, onDelete }) 
   
     setIsUploading(true);
     try {
-      const response = await fetch('http://localhost:8000/api/upload', {
-        method: 'POST',
-        body: uploadData,
-      });
-      const data = await response.json();
+      const data = await apiUploadImage(uploadData);
   
-      if (response.ok && data.url) {
+      if (data.url) {
         setFormData(prev => ({ ...prev, image: data.url }));
       }
     } catch (err) {
       console.error("Upload error:", err);
+      alert("Upload failed: " + err.message);
     } finally {
       setIsUploading(false);
     }

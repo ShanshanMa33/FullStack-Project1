@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import './ProductPage.css';
+import { apiGetProducts, apiDeleteProduct } from '../../api/products';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import Pagination from '../../components/Pagination/Pagination';
 import ProductHeader from './components/ProductHeader'; 
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import Button from '../../components/common/Button/Button';
 
-const ProductPage = ({ isAdmin }) => {
+const ProductPage = () => {
+  const { user, token } = useSelector((state) => state.auth);
+  const isAdmin = !!token && user?.role === 'admin';
   
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
@@ -25,6 +29,34 @@ const ProductPage = ({ isAdmin }) => {
     setSearchParams({ ...current, ...newParams }); 
   };
 
+  const fetchProducts = async () => {
+    try {
+      const params = {};
+      if (searchQuery) params.search = searchQuery;
+      if (filterCategory !== 'All') params.category = filterCategory;
+
+      const data = await apiGetProducts(params);
+      const result = Array.isArray(data) ? data : (data.data || []);
+      setProducts(result); 
+    } catch (err) {
+      console.error("Fail to load:", err.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, [searchQuery, filterCategory]);
+
+  const handleDelete = async (mongoId) => {
+    if (!window.confirm("Confirm to delete this product?")) return;
+    try {
+      await apiDeleteProduct(mongoId);
+      fetchProducts();
+    } catch (err) {
+      alert("Delete failed: " + err.message);
+    }
+  };
+
   const processedProducts = products
     .sort((a, b) => {
       if (sortType === 'Price: low to high') return parseFloat(a.price) - parseFloat(b.price);
@@ -36,39 +68,6 @@ const ProductPage = ({ isAdmin }) => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = processedProducts.slice(indexOfFirstItem, indexOfLastItem);
-
-  useEffect(() => {
-    const fetchProducts = () => {
-      const params = new URLSearchParams();
-      if (searchQuery) params.append('search', searchQuery);
-      if (filterCategory !== 'All') params.append('category', filterCategory);
-
-      fetch(`http://localhost:8000/api/products?${params.toString()}`)
-        .then(res => res.json())
-        .then(data => {
-          const result = Array.isArray(data) ? data : (data.data || []);
-          setProducts(result); 
-        })
-        .catch(err => console.error("fetch error:", err));
-    };
-
-    fetchProducts();
-  }, [searchQuery, filterCategory]);
-
-  const handleDelete = async (mongoId) => {
-    if (!window.confirm("confirm to delete this product?")) return;
-    try {
-      const res = await fetch(`http://localhost:8000/api/products/${mongoId}`, { 
-        method: 'DELETE' 
-      });
-      if (res.ok) {const params = new URLSearchParams(searchParams);
-        fetch(`http://localhost:8000/api/products?${params.toString()}`)
-          .then(res => res.json())
-          .then(data => setProducts(Array.isArray(data) ? data : (data.data || [])));}
-    } catch (err) {
-      console.error("fail to delete:", err);
-    }
-  };
 
   return (
     <div className="product-page-container">

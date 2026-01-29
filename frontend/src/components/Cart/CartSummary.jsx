@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'; // 🌟 引入 useEffect
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setPromo, clearPromo } from '../../store/slices/cartSlice';
+import { apiValidatePromo } from '../../api/promo';
 import './CartSummary.css';
 import Button from '../common/Button/Button';
 
@@ -49,13 +50,7 @@ const CartSummary = () => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:8000/api/promo/validate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: promoCode })
-      });
-
-      const data = await response.json();
+      const data = await apiValidatePromo(promoCode);
 
       if (data.success) {
         dispatch(setPromo(data.data || data));
@@ -65,7 +60,7 @@ const CartSummary = () => {
         dispatch(clearPromo());
       }
     } catch (err) {
-      setError('Server error, please try again later');
+      setError(err.message || 'Server error, please try again later');
     }
   };
 

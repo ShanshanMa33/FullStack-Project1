@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductForm from '../../components/ProductForm/ProductForm';
 import { useNavigate } from 'react-router-dom';
+import { apiCreateProduct } from '../../api/products';
 
 /**
  * CreateProduct Page Component.
@@ -14,31 +15,20 @@ const CreateProduct = () => {
    */
   const handleCreateSubmit = async (formData) => {
     try {
-      const response = await fetch('http://localhost:8000/api/products', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          price: Number(formData.price),
-          quantity: Number(formData.quantity)
-        }),
-      });
+      const result = await apiCreateProduct(formData);
 
-      const result = await response.json();
-
-      if (response.ok && result.success) {
+      if (result.success) {
         window.alert('Product created successfully!');
         navigate(-1); 
       } else {
         window.alert(result.message || 'Failed to create product');
       }
     } catch (err) {
-      console.error("Submission failed:", err);
-      window.alert('Network error: Please check if your backend server is running on port 8000.');
+      console.error("Submission failed:", err.message);
+      window.alert(err.message || 'Network error: Check your connection.');
     }
   };
+  
 
   return (
     <div className="form-page-container">

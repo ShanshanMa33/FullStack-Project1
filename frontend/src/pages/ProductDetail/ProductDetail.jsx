@@ -1,32 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ProductDetail.css';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../../store/slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { apiGetProductById } from '../../api/products';
+import { addToCart, updateQuantity } from '../../store/slices/cartSlice';
 import Button from '../../components/common/Button/Button';
 
 const ProductDetail = () => {
-  const dispatch = useDispatch();
   const { id } = useParams();
+  const { user, token } = useSelector((state) => state.auth);
+  const isAdmin = !!token && user?.role === 'admin';
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const cartItem = useSelector(state => 
+    state.cart.items.find(item => item._id === id) 
+  );
+  
+    const count = cartItem ? cartItem.quantity : 0;
+
   useEffect(() => {
-    const fetchProduct = async () => {
+    const loadProduct = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/products/${id}`);
-        if (!response.ok) throw new Error('Product not found');
-        const data = await response.json();
+        const data = await apiGetProductById(id);
         setProduct(data.data || data);
       } catch (err) {
-        console.error("Fetch detail error:", err);
+        console.error("Fetch detail error:", err.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProduct();
+    loadProduct();
   }, [id]);
 
   const handleAddToCart = () => {
@@ -71,21 +79,37 @@ const ProductDetail = () => {
 
           <div className="product-actions">
           <Button 
-              variant="primary"
-              className='add-to-cart-btn'
-              onClick={handleAddToCart}
-              disabled={product.quantity <= 0}
-            >
-              Add To Cart
-            </Button>
-            <Button 
-              variant="secondary"
-              className="edit-product-btn"
-              onClick={() => navigate(`/edit-product/${product._id}`)}
-              style={{ marginLeft: '12px' }}
-            >
-              Edit
-            </Button>
+          variant="primary" 
+          size="md"             
+          className="add-to-cart-btn"
+          disabled={product.quantity <= 0}
+          isStepper={count > 0}      
+          count={count}         
+          onIncrease={(e) => { 
+            e.stopPropagation(); 
+            dispatch(addToCart(product));
+          }}
+          onDecrease={(e) => { 
+            e.stopPropagation(); 
+            dispatch(updateQuantity({ id: product._id, amount: -1 }));
+          }}
+          onClick={(e) => { 
+            e.stopPropagation(); 
+            if(count === 0) dispatch(addToCart(product));
+          }}
+        >
+          Add to Cart
+        </Button>
+            {isAdmin && (
+              <Button 
+                variant="secondary"
+                className="edit-product-btn"
+                onClick={() => navigate(`/edit-product/${product._id}`)}
+                style={{ marginLeft: '12px' }}
+              >
+                Edit
+              </Button>
+            )}
           </div>
         </div>
       </div>

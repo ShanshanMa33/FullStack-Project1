@@ -1,0 +1,30 @@
+[
+  {
+    "id": "ed499e3f-7455-42ee-a224-c2bc534416a8",
+    "email": "shanshanma@admin.com",
+    "password": "$2b$10$e8kArfX7IktxxoN3ecUTreRNFun4KO554C1l2Uh33RFlO38IFRMgq",
+    "role": "admin",
+    "createdAt": "2026-01-26T05:29:08.607Z"
+  },
+  {
+    "id": "d3ea277b-7f5e-48b2-9764-87952d584cc8",
+    "email": "shanshanma@user.com",
+    "password": "$2b$10$l55IWVBT9p6MROaUXnKy8OqnruazOjfJ0KNLYMqw/e5K14ln6ujra",
+    "role": "user",
+    "createdAt": "2026-01-26T23:28:28.770Z"
+  },
+  {
+    "id": "c60048c4-f61a-4c53-ae32-abaf96970a0d",
+    "email": "nuochen@admin.com",
+    "password": "$2b$10$drVWIpQSoA2TC6obbAFLGeuhjsBzP6jO33iGC9cxdghKDGVUgskP.",
+    "role": "admin",
+    "createdAt": "2026-01-26T23:29:10.197Z"
+  },
+  {
+    "id": "48b5bb46-1163-47ea-b939-2bd669714b6f",
+    "email": "nuochen@user.com",
+    "password": "$2b$10$wsJqZ974c1CoS2C3B4LJlOnauwMxmUgM4fv66j54b6gUID1aDB/la",
+    "role": "user",
+    "createdAt": "2026-01-26T23:29:54.961Z"
+  }
+]

@@ -38,6 +38,10 @@ const cartSlice = createSlice({
           }
         }
       },
+
+      setCart: (state, action) => {
+        state.items = action.payload;
+      },
     
       setPromo: (state, action) => {
         state.appliedPromo = action.payload;
@@ -67,6 +71,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, updateQuantity, clearCart, toggleCartModal, 
+export const { addToCart, removeFromCart, updateQuantity, setCart, clearCart, toggleCartModal, 
     setCartModalOpen, setPromo, clearPromo } = cartSlice.actions;
 export default cartSlice.reducer;

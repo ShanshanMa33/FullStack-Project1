@@ -168,6 +168,7 @@
     display: flex;
     margin-top: 41px;
     justify-content: flex-start;
+    
     gap: 20px; 
   }
   
@@ -192,6 +193,9 @@
     transition: background-color 0.2s;
   }
   
+  .product-actions .add-to-cart-btn.stepper-container {
+    justify-content: space-between;
+}
   .add-to-cart-btn:hover {
     background-color: #3f38bc;
   }

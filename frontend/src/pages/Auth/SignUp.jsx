@@ -22,6 +22,7 @@ export default function SignUp() {
     const [touched, setTouched] = useState({ email: false, password: false, confirmPassword: false });
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     const emailInvalid = touched.email && !isValidEmail(email);
     const passwordInvalid = touched.password && !isValidPassword(password);
@@ -50,7 +51,7 @@ export default function SignUp() {
 
         try {
             await dispatch(signupThunk({ email, password })).unwrap();
-            navigate('/signin');
+            setSuccess(true);
         } catch (err) {
             // Error handled by Redux state
         }
@@ -61,56 +62,61 @@ export default function SignUp() {
             <div className="auth-modal">
                 <button className="auth-close" type="button" onClick={() => navigate("/")}>×</button>
                 <h1 className="auth-title">Sign up an account</h1>
-                <form className="auth-form" onSubmit={handleSubmit}>
-                    <label className="auth-label">Email</label>
-                    <input
-                        className={`auth-input ${emailInvalid ? 'input-error' : ''}`}
-                        value={email}
-                        onBlur={() => setTouched((t) => ({ ...t, email: true }))}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your email"
-                    />
-                    {emailInvalid && <div className="error-text">Invalid Email input!</div>}
-
-                    <label className="auth-label">Password</label>
-                    <div className="password-row">
+                {success ? (
+                    <div className="auth-success-message">
+                        Account created successfully! You can now <Link to="/signin">Sign In</Link>.
+                    </div>
+                ) : (
+                    <form className="auth-form" onSubmit={handleSubmit}>
+                        <label className="auth-label">Email</label>
                         <input
-                            className={`auth-input ${passwordInvalid ? 'input-error' : ''}`}
-                            type={showPassword ? 'text' : 'password'}
-                            value={password}
-                            onBlur={() => setTouched((t) => ({ ...t, password: true }))}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Enter your password"
+                            className={`auth-input ${emailInvalid ? 'input-error' : ''}`}
+                            value={email}
+                            onBlur={() => setTouched((t) => ({ ...t, email: true }))}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your email"
                         />
-                        <button
-                            className="show-password" type="button" onClick={() => setShowPassword((v) => !v)}>
-                            {showPassword ? 'Hide' : 'Show'}
+                        {emailInvalid && <div className="error-text">Invalid Email input!</div>}
+
+                        <label className="auth-label">Password</label>
+                        <div className="password-row">
+                            <input
+                                className={`auth-input ${passwordInvalid ? 'input-error' : ''}`}
+                                type={showPassword ? 'text' : 'password'}
+                                value={password}
+                                onBlur={() => setTouched((t) => ({ ...t, password: true }))}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Enter your password"
+                            />
+                            <button
+                                className="show-password" type="button" onClick={() => setShowPassword((v) => !v)}>
+                                {showPassword ? 'Hide' : 'Show'}
+                            </button>
+                        </div>
+                        {passwordInvalid && <div className="error-text">Invalid Password input!</div>}
+
+                        <label className="auth-label">Confirm Password</label>
+                        <input
+                            className={`auth-input ${confirmPasswordInvalid ? 'input-error' : ''}`}
+                            type="password"
+                            value={confirmPassword}
+                            onBlur={() => setTouched((t) => ({ ...t, confirmPassword: true }))}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            placeholder="Confirm your password"
+                        />
+                        {confirmPasswordInvalid && <div className="error-text">Passwords do not match.</div>}
+
+                        <button className="auth-submit" type="submit" disabled={loading}>
+                            {loading ? 'Creating...' : 'Create Account'}
                         </button>
-                    </div>
-                    {passwordInvalid && <div className="error-text">Invalid Password input!</div>}
 
-                    <label className="auth-label">Confirm Password</label>
-                    <input
-                        className={`auth-input ${confirmPasswordInvalid ? 'input-error' : ''}`}
-                        type="password"
-                        value={confirmPassword}
-                        onBlur={() => setTouched((t) => ({ ...t, confirmPassword: true }))}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        placeholder="Confirm your password"
-                    />
-                    {confirmPasswordInvalid && <div className="error-text">Passwords do not match.</div>}
+                        {error && <div className="error-text api-error">{error}</div>}
 
-                    <button className="auth-submit" type="submit" disabled={loading}>
-                        {loading ? 'Creating...' : 'Create Account'}
-                    </button>
-
-                    {error && <div className="error-text api-error">{error}</div>}
-
-                    <div className="auth-links" style={{ justifyContent: 'center' }}>
-                        <span>Already have an account?</span>
-                        <Link className="auth-link" to="/signin">Sign In</Link>
-                    </div>
-                </form>
+                        <div className="auth-links" style={{ justifyContent: 'center' }}>
+                            <span>Already have an account?</span>
+                            <Link className="auth-link" to="/signin">Sign In</Link>
+                        </div>
+                    </form>)}
             </div>
         </div>
     );

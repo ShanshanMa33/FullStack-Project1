@@ -9,8 +9,8 @@ import Footer from './components/Footer';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import EditProduct from './pages/EditProduct/EditProduct';
 import CartModal from './components/Cart/CartModal';
-import SignIn from './pages/Auth/SignIn';
-import SignUp from './pages/Auth/SignUp';
+import AuthPage from './pages/Auth/AuthPage';
+import ForgotSuccess from './pages/Auth/ForgotSuccess';
 import './styles/auth.css';
 
 function App() {
@@ -19,38 +19,46 @@ function App() {
   const isAdmin = isLoggedIn && user?.role === 'admin';
 
   return (
-    <Router>
-      <Header isAdmin={isAdmin} 
-          onOpenCart={() => setIsCartOpen(true)} />
+    <>
+      <Header isAdmin={isAdmin}
+        onOpenCart={() => setIsCartOpen(true)} />
 
       <div className="App">
         <Routes>
-          
+
           <Route path="/" element={<ProductPage isAdmin={isAdmin} />} />
-          <Route path="/products" element={<ProductPage isAdmin={isAdmin} />} />   
-          <Route 
-            path="/signin" 
-            element={isLoggedIn ? <Navigate to="/" /> : <SignIn />} 
+          <Route path="/products" element={<ProductPage isAdmin={isAdmin} />} />
+          <Route
+            path="/signin"
+            element={isLoggedIn ? <Navigate to="/" /> : <AuthPage type="signin" />}
           />
-          <Route 
-            path="/signup" 
-            element={isLoggedIn ? <Navigate to="/" /> : <SignUp />} 
-          /> 
-          <Route 
-            path="/create-product" 
-            element={isAdmin ? <CreateProduct /> : <Navigate to="/" />} 
+          <Route
+            path="/signup"
+            element={isLoggedIn ? <Navigate to="/" /> : <AuthPage type="signup" />}
           />
-          <Route 
-            path="/edit-product/:id" 
-            element={isAdmin ? <EditProduct /> : <Navigate to="/" />} 
+          <Route
+            path="/forgot-password"
+            element={isLoggedIn ? <Navigate to="/" /> : <AuthPage type="update-password" />}
+
+          />
+          <Route
+            path="/forgot-password-success"
+            element={isLoggedIn ? <Navigate to="/" /> : <ForgotSuccess />}
+          />
+          <Route
+            path="/create-product"
+            element={isAdmin ? <CreateProduct /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/edit-product/:id"
+            element={isAdmin ? <EditProduct /> : <Navigate to="/" />}
           />
           <Route path="/product/:id" element={<ProductDetail />} />
         </Routes>
       </div>
       <CartModal />
       <Footer />
-    
-    </Router>
+    </>
   );
 }
 

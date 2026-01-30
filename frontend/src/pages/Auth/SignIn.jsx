@@ -37,7 +37,7 @@ export default function SignIn() {
             setLocalError("Invalid password.");
             return;
         }
-        
+
 
         const action = await dispatch(loginThunk({ email, password }));
         console.log("Login action:", action);
@@ -49,7 +49,7 @@ export default function SignIn() {
     }
 
     return (
-        
+
         <div className="auth-page">
             <div className="auth-modal">
                 <button className="auth-close" type="button" onClick={() => navigate("/")}>×</button>
@@ -107,6 +107,6 @@ export default function SignIn() {
                 </form>
             </div>
         </div>
-        
+
     )
 }

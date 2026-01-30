@@ -80,7 +80,8 @@ const login = async (req, res, next) => {
             user: {
                 id: user._id,
                 email: user.email,
-                role: user.role
+                role: user.role,
+                cart: user.cart || []
             }
         };
 
@@ -93,7 +94,8 @@ const login = async (req, res, next) => {
             user: {
                 id: user.id,
                 email: user.email,
-                role: user.role
+                role: user.role,
+                cart: user.cart || []
             }
         });
     } catch (err) {
@@ -144,10 +146,33 @@ const currentUser = async (req, res, next) => {
     }
 };
 
+const updateCart = async (req, res) => {
+    try {
+        const { cart } = req.body;
+        const userId = req.user.id;
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { cart: cart },
+            { new: true }
+        );
+
+        res.status(200).json({
+            success: true,
+            message: "Cart updated successfully",
+            cart: updatedUser.cart
+        });
+    } catch (error) {
+        console.error("Update Cart Error:", error);
+        res.status(500).json({ message: "Failed to sync cart to database" });
+    }
+};
+
 module.exports = {
     signup,
     login,
     logout,
     forgotPassword,
-    currentUser
+    currentUser,
+    updateCart
 };

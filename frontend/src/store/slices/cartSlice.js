@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { loginThunk } from './Thunks';
 
 const savedCart = localStorage.getItem('cartItems');
 const savedPromo = localStorage.getItem('appliedPromo');
@@ -41,6 +42,7 @@ const cartSlice = createSlice({
 
       setCart: (state, action) => {
         state.items = action.payload;
+      localStorage.setItem('cartItems', JSON.stringify(action.payload));
       },
     
       setPromo: (state, action) => {
@@ -69,6 +71,26 @@ const cartSlice = createSlice({
       }
     
   },
+  // extraReducers: (builder) => {
+  //   builder.addCase(loginThunk.fulfilled, (state, action) => {
+  //     const guestItems = state.items;
+  //     const userItems = action.payload.user.cart || [];
+  
+  //     const merged = [...userItems];
+  
+  //     guestItems.forEach(guestItem => {
+  //       const existing = merged.find(item => item._id === guestItem._id);
+        
+  //       if (existing) {
+  //         existing.quantity += guestItem.quantity;
+  //       } else {
+  //         merged.push(guestItem);
+  //       }
+  //     });
+  //       state.items = merged;
+  //     localStorage.setItem('cartItems', JSON.stringify(merged));
+  //   });
+  // },
 });
 
 export const { addToCart, removeFromCart, updateQuantity, setCart, clearCart, toggleCartModal, 

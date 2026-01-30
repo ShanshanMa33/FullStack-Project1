@@ -3,12 +3,17 @@ const mongoose = require('mongoose');
 
 const validateCode = async (req, res) => {
     try {
-        const { code } = req.body;
-        const promo = await Promo.findOne({ code: code.toUpperCase(), isActive: true });
+        const { code } = req.body; 
+        
+        const promo = await Promo.findOne({ code: code, isActive: true });
 
         if (!promo) {
-            return res.status(404).json({ success: false, message: 'Invalid code!' });
+            return res.status(404).json({ 
+                success: false, 
+                message: 'Please enter valid code' 
+            });
         }
+
         res.status(200).json({
             success: true,
             message: 'Successfully applied!',
@@ -43,60 +48,7 @@ const createPromoCode = async (req, res) => {
     }
 };
 
-// const seedPromos = async (req, res) => {
-//     try {
-
-//         await Promo.deleteMany({});
-
-//         const samplePromos = [
-//             {
-//                 code: 'SAVE20',
-//                 discountType: 'amount',
-//                 discountValue: 20,
-//                 isActive: true
-//             },
-//             {
-//                 code: 'HAPPY10',
-//                 discountType: 'percentage',
-//                 discountValue: 10,
-//                 isActive: true
-//             },
-//             {
-//                 code: 'CHUWASPECIAL',
-//                 discountType: 'percentage',
-//                 discountValue: 50,
-//                 isActive: true
-//             }
-//         ];
-
-//         await Promo.insertMany(samplePromos);
-
-//         res.status(200).send("Initialize promo code success!");
-//     } catch (err) {
-//         res.status(500).json({ message: err.message });
-//     }
-// };
-
-const seedPromos = async (req, res) => {
-    try {
-         const deleteResult = await Promo.deleteMany({});
-    
-
-        const samplePromos = [
-            { code: 'SAVE20', discountType: 'amount', discountValue: 20, isActive: true },
-            { code: 'HAPPY10', discountType: 'percentage', discountValue: 10, isActive: true }
-        ];
-
-        const saved = await Promo.insertMany(samplePromos);
-        res.status(200).send(`Successfully save ${saved.length} codes into database.`);
-    } catch (err) {
-        console.error("error:", err);
-        res.status(500).send("Error: " + err.message);
-    }
-};
-
 module.exports = {
     validateCode,
-    createPromoCode,
-    seedPromos
+    createPromoCode
 };

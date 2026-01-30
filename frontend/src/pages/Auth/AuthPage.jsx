@@ -5,6 +5,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loginThunk, signupThunk, forgotPasswordThunk } from "../../store/slices/Thunks";
 import { clearAuthMessages } from "../../store/slices/authSlice";
 import PasswordField from "../../components/PasswordField";
+import axios from "axios"; 
+import { setCart } from "../../store/slices/cartSlice"; 
 
 function isValidEmail(email) {
   return typeof email === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -71,19 +73,52 @@ export default function AuthPage({ type }) {
     try {
       if (type === "signin") {
         if (!isValidPassword(password)) {
-          setLocalError("Invalid password.");
-          return;
+            setLocalError("Invalid password.");
+            return;
         }
-
-        localStorage.setItem("guest_cart_snapshot", JSON.stringify(cartItems));
-
+        const guestItems = [...cartItems]; 
         const action = await dispatch(loginThunk({ email, password }));
+    
         if (loginThunk.fulfilled.match(action)) {
-          // optional: go back where user came from
-          navigate(from, { replace: true });
+
+            const token = action.payload.token;
+            const dbItems = action.payload.user.cart || []; 
+    
+            const mergedCart = [...dbItems]; 
+            guestItems.forEach(guestItem => {
+                const existing = mergedCart.find(item => 
+                    (item.productId === guestItem._id) || (item._id === guestItem._id)
+                );
+                
+                if (existing) {
+                    existing.quantity += guestItem.quantity;
+                } else {
+                    mergedCart.push({
+                        productId: guestItem._id, 
+                        name: guestItem.name,
+                        price: guestItem.price,
+                        quantity: guestItem.quantity,
+                        image: guestItem.image
+                    });
+                }
+            });
+  
+            try {
+                await axios.put(
+                    'http://localhost:8000/api/auth/updateCart', 
+                    { cart: mergedCart },
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                dispatch(setCart(mergedCart));
+                
+                navigate(from, { replace: true });
+            } catch (syncErr) {
+                console.error("Cart sync failed:", syncErr);
+                navigate(from, { replace: true });
+            }
         }
         return;
-      }
+    }
 
       if (type === "signup") {
         if (!isValidPassword(password)) {

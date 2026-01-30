@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
 
     try {
         const secret = process.env.JWT_SECRET || "project1_secret_key";
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, secret);
         req.user = decoded.user;
         next();
     } catch (err) {

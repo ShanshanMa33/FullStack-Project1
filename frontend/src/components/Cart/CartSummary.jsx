@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setPromo, clearPromo } from '../../store/slices/cartSlice';
 import { apiValidatePromo } from '../../api/promo';
+import { useNavigate } from 'react-router-dom';
 import './CartSummary.css';
 import Button from '../common/Button/Button';
 
@@ -13,11 +14,13 @@ import Button from '../common/Button/Button';
 const CartSummary = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.items);
 
   const [promoCode, setPromoCode] = useState(''); 
   const appliedPromo = useSelector((state) => state.cart.appliedPromo);
   const [error, setError] = useState('');
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     if (appliedPromo) {
@@ -45,9 +48,15 @@ const CartSummary = () => {
 
   const estimatedTotal = Math.max(0, subtotal + tax - discount);
 
+  
   const handleApplyPromo = async () => {
     if (!promoCode) return;
     setError('');
+    if (!user) {
+      alert("Please sign in to apply a discount code!");
+      navigate("/signin");
+      return;
+    }
 
     try {
       const data = await apiValidatePromo(promoCode);
@@ -55,12 +64,20 @@ const CartSummary = () => {
       if (data.success) {
         dispatch(setPromo(data.data || data));
       } else {
-        alert(`Error: ${data.message || 'Invalid code'}`);
-        setError(data.message || 'Invalid code');
+        alert(data.message || 'Please enter valid code');
+        setError(data.message || 'Please enter valid code');
         dispatch(clearPromo());
       }
     } catch (err) {
-      setError(err.message || 'Server error, please try again later');
+      if (err.response && err.response.status === 401) {
+        alert("Session expired or not signed in. Please sign in again.");
+        navigate("/signin");
+      } else {
+        const msg = err.response?.data?.message || "Please enter valid code";
+        alert(msg);
+        setError(msg);
+      }
+      dispatch(clearPromo());
     }
   };
 

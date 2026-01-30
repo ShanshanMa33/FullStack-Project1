@@ -36,7 +36,7 @@ export const initialProducts = [
       category: "Watch",
       image: p3,
       description: "Smarter, brighter, mightier. A magic way to use your watch.",
-      stock: 0 // 🌟 设为 0 以测试 "Out of Stock" 标签
+      stock: 0
     },
     {
       id: 4,

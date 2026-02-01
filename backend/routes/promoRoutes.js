@@ -7,6 +7,4 @@ const promoValidator = require('../middlewares/promoValidator');
 
 router.post('/validate', auth, promoValidator, promoController.validateCode);
 
-router.post('/add', auth, promoController.createPromoCode);
-
 module.exports = router;

@@ -17,11 +17,13 @@ const cartSlice = createSlice({
     // add to cart
     addToCart: (state, action) => {
       const product = action.payload;
-      const existingItem = state.items.find(item => item._id === product._id);
+      const existingItem = state.items.find(item => (item._id === product._id) || (item.productId === product._id));
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
-        state.items.push({ ...product, quantity: 1 });
+        state.items.push({ ...product, 
+          productId: product._id,
+          quantity: 1 });
       }
     },
     // remove from cart

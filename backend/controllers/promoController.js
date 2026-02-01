@@ -25,30 +25,8 @@ const validateCode = async (req, res) => {
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
-};
-
-const createPromoCode = async (req, res) => {
-    try {
-        const { code, discount } = req.body;
-
-        if (!code || !discount) {
-            return res.status(400).json({ message: "Please enter discount amount" });
-        }
-
-        const newPromo = new Promo({
-            code: code.toUpperCase(),
-            discount: Number(discount),
-            isActive: true
-        });
-
-        await newPromo.save();
-        res.status(201).json({ success: true, message: "Promo code created success!", data: newPromo });
-    } catch (err) {
-        res.status(500).json({ success: false, message: err.message });
-    }
-};
+}; 
 
 module.exports = {
-    validateCode,
-    createPromoCode
+    validateCode
 };

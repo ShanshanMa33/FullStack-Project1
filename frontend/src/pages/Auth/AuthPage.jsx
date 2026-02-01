@@ -84,7 +84,12 @@ export default function AuthPage({ type }) {
             const token = action.payload.token;
             const dbItems = action.payload.user.cart || []; 
     
-            const mergedCart = [...dbItems]; 
+            const normalizedDbItems = dbItems.map(item => ({
+              ...item,
+              _id: item.productId
+          }));
+  
+          const mergedCart = [...normalizedDbItems]; 
             guestItems.forEach(guestItem => {
                 const existing = mergedCart.find(item => 
                     (item.productId === guestItem._id) || (item._id === guestItem._id)

@@ -37,12 +37,6 @@ const ProductDetail = () => {
     loadProduct();
   }, [id]);
 
-  const handleAddToCart = () => {
-    if (product) {
-      dispatch(addToCart(product));
-    }
-  };
-
   if (loading) return <div className="loading-state">Loading...</div>;
   if (!product) return <div className="error-state">Product not found!</div>;
 
@@ -105,7 +99,6 @@ const ProductDetail = () => {
                 variant="secondary"
                 className="edit-product-btn"
                 onClick={() => navigate(`/edit-product/${product._id}`)}
-                style={{ marginLeft: '12px' }}
               >
                 Edit
               </Button>

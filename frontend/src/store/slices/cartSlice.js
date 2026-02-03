@@ -1,6 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { logout } from './authSlice';
-import { loginThunk } from './Thunks';
+
+const saveToLocalStorage = (items) => {
+  localStorage.setItem('cartItems', JSON.stringify(items));
+};
+const savePromoToLocalStorage = (promo) => {
+  if (promo) {
+    localStorage.setItem('appliedPromo', JSON.stringify(promo));
+  } else {
+    localStorage.removeItem('appliedPromo');
+  }
+};
 
 const savedCart = localStorage.getItem('cartItems');
 const savedPromo = localStorage.getItem('appliedPromo');
@@ -25,11 +35,13 @@ const cartSlice = createSlice({
           productId: product._id,
           quantity: 1 });
       }
+      saveToLocalStorage(state.items);
     },
     // remove from cart
     removeFromCart: (state, action) => {
         const id = action.payload;
         state.items = state.items.filter(item => item._id !== id);
+        saveToLocalStorage(state.items);
       },
   
     // update cart
@@ -42,28 +54,29 @@ const cartSlice = createSlice({
             state.items = state.items.filter(i => i._id !== id);
           }
         }
+        saveToLocalStorage(state.items);
       },
 
       setCart: (state, action) => {
         state.items = action.payload;
-      localStorage.setItem('cartItems', JSON.stringify(action.payload));
+        saveToLocalStorage(state.items);
       },
     
       setPromo: (state, action) => {
         state.appliedPromo = action.payload;
-        localStorage.setItem('appliedPromo', JSON.stringify(action.payload));
+        savePromoToLocalStorage(state.appliedPromo);
     },
 
       clearPromo: (state) => {
         state.appliedPromo = null;
-        localStorage.removeItem('appliedPromo');
+        savePromoToLocalStorage(null);
     },
 
       clearCart: (state) => {
         state.items = [];
         state.appliedPromo = null;
-        localStorage.removeItem('cartItems');
-        localStorage.removeItem('appliedPromo');
+        saveToLocalStorage([]); 
+        savePromoToLocalStorage(null);
     },
 
       toggleCartModal: (state) => {
@@ -77,9 +90,11 @@ const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     
-    builder.addCase('auth/logout', (state) => {
+    builder.addCase(logout, (state) => {
+      state.items = [];
       state.appliedPromo = null;
-      localStorage.removeItem('appliedPromo');
+      saveToLocalStorage([]);
+      savePromoToLocalStorage(null);
     });
   }
 });

@@ -4,7 +4,9 @@ import { setCartModalOpen, updateQuantity } from '../../store/slices/cartSlice';
 import CartHeader from './CartHeader';           
 import CartItem from './CartItem';                 
 import CartSummary from './CartSummary';          
-import './CartModal.css';                          
+import './CartModal.css';  
+import { apiSyncCart } from '../../api/cart';    
+import { useEffect, useRef } from 'react';                    
 
 /**
  * CartModal serves as the main container for the shopping cart interface.
@@ -17,6 +19,27 @@ const CartModal = () => {
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
   const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   const handleClose = () => dispatch(setCartModalOpen(false));
+  const { token } = useSelector((state) => state.auth);
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (token && !isFirstRender.current) {
+      const sync = async () => {
+        try {
+          await apiSyncCart(cartItems);
+          console.log("MongoDB 实时同步成功");
+        } catch (err) {
+          console.error("同步失败:", err.message);
+        }
+      };
+      const timer = setTimeout(sync, 500); 
+      return () => clearTimeout(timer);
+    }
+    isFirstRender.current = false;
+  }, [cartItems, token]);
+  const handleUpdateAndSync = (id, amount) => {
+    dispatch(updateQuantity({ id, amount }));
+  };
 
   if (!isOpen) return null;
 
@@ -30,7 +53,7 @@ const CartModal = () => {
             <div className="empty-cart-msg">Your cart is empty.</div>
           ) : (
             cartItems.map((item) => (
-              <CartItem key={item._id} item={item} onUpdate={(id, amount) => dispatch(updateQuantity({ id, amount }))} />
+              <CartItem key={item._id} item={item} onUpdate={handleUpdateAndSync} />
             ))
           )}
         </div>

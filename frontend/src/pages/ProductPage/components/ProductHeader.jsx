@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import SortSelect from './SortSelect';
 import Button from '../../../components/common/Button/Button';
 
-const ProductHeader = ({ isAdmin, currentSort, onSortChange, onCategoryChange }) => {
+const ProductHeader = ({ isAdmin, currentSort, onSortChange }) => {
   const navigate = useNavigate();
 
   return (

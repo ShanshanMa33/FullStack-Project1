@@ -33,3 +33,15 @@ export const forgotPasswordThunk = createAsyncThunk(
         }
     }
 ); 
+
+export const syncCartThunk = createAsyncThunk(
+    'cart/sync',
+    async (cartItems, { rejectWithValue }) => {
+      try {
+        const response = await apiUpdateCart(cartItems); 
+        return response.data;
+      } catch (err) {
+        return rejectWithValue(err.message);
+      }
+    }
+  );

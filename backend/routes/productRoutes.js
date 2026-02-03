@@ -6,16 +6,15 @@ const productController = require('../controllers/productController');
 
 // 2. Import the Validator
 const { validateProduct } = require('../middlewares/productValidator');
+const auth = require('../middlewares/auth');
 
 // --- ROUTES ---
 router.get('/products', productController.getAllProducts);
-
-router.post('/products', validateProduct, productController.createProduct);
-
-router.delete('/products/:id', productController.deleteProduct);
-
 router.get('/products/:id', productController.getProductById);
-router.put('/products/:id', productController.updateProduct);
+
+router.post('/products', auth, validateProduct, productController.createProduct);
+router.delete('/products/:id', auth, productController.deleteProduct);
+router.put('/products/:id', auth, validateProduct, productController.updateProduct);
 
 
 module.exports = router;

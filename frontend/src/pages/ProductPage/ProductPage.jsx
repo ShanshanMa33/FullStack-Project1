@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './ProductPage.css';
-import { apiGetProducts, apiDeleteProduct } from '../../api/products';
+import { apiGetProducts } from '../../api/products';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import Pagination from '../../components/Pagination/Pagination';
 import ProductHeader from './components/ProductHeader'; 
@@ -11,13 +11,10 @@ import Button from '../../components/common/Button/Button';
 const ProductPage = () => {
   const { user, token } = useSelector((state) => state.auth);
   const isAdmin = !!token && user?.role === 'admin';
-  
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-
   const searchQuery = searchParams.get('search') || '';
-  const filterCategory = searchParams.get('category') || 'All';
   const sortType = searchParams.get('sort') || 'Last added';
   const currentPage = parseInt(searchParams.get('page') || '1');
   const itemsPerPage = 10;
@@ -33,7 +30,6 @@ const ProductPage = () => {
     try {
       const params = {};
       if (searchQuery) params.search = searchQuery;
-      if (filterCategory !== 'All') params.category = filterCategory;
 
       const data = await apiGetProducts(params);
       const result = Array.isArray(data) ? data : (data.data || []);
@@ -45,17 +41,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, [searchQuery, filterCategory]);
-
-  const handleDelete = async (mongoId) => {
-    if (!window.confirm("Confirm to delete this product?")) return;
-    try {
-      await apiDeleteProduct(mongoId);
-      fetchProducts();
-    } catch (err) {
-      alert("Delete failed: " + err.message);
-    }
-  };
+  }, [searchQuery]);
 
   const processedProducts = products
     .sort((a, b) => {
@@ -72,9 +58,7 @@ const ProductPage = () => {
   return (
     <div className="product-page-container">
       <ProductHeader
-        isAdmin={isAdmin} 
-        currentCategory={filterCategory} 
-        onCategoryChange={(val) => updateParams({ category: val, page: 1 })} 
+        isAdmin={isAdmin}
         currentSort={sortType}
         onSortChange={(val) => updateParams({ sort: val })}
       />
@@ -103,7 +87,6 @@ const ProductPage = () => {
               key={item._id}
               product={item}
               isAdmin={isAdmin}
-              onDelete={() => handleDelete(item._id)}
             />
           ))}
         </div>

@@ -10,7 +10,9 @@ const ProductCard = ({ product, isAdmin }) => {
   const dispatch = useDispatch();
   
   const cartItem = useSelector(state => 
-    state.cart.items.find(item => item._id === product._id)
+    state.cart.items.find(item => 
+      (item.productId === product._id) || (item._id === product._id)
+    )
   );
 
   const count = cartItem ? cartItem.quantity : 0;
